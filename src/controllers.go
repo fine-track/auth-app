@@ -6,11 +6,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fine-track/auth-app/src/db"
+	"github.com/fine-track/auth-app/src/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	"github.com/sifatulrabbi/fine-track/auth-api/src/db"
-	"github.com/sifatulrabbi/fine-track/auth-api/src/utils"
 )
 
 type RegisterUserPayload struct {

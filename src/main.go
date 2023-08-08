@@ -5,10 +5,9 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/fine-track/auth-app/src/db"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-
-	"github.com/sifatulrabbi/fine-track/auth-api/src/db"
 )
 
 func corsMiddleware(c *gin.Context) {

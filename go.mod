@@ -1,4 +1,4 @@
-module github.com/sifatulrabbi/fine-track/auth-api
+module github.com/fine-track/auth-app
 
 go 1.20
 

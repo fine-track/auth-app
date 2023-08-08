@@ -3,8 +3,8 @@ package main
 import (
 	"strings"
 
+	"github.com/fine-track/auth-app/src/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/sifatulrabbi/fine-track/auth-api/src/utils"
 )
 
 func verifyAccessTokenMiddleware(c *gin.Context) {
