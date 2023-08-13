@@ -10,7 +10,7 @@ import (
 )
 
 type AccessTokenClaims struct {
-	UserId string `json:"userId"` // hex representation of mongodb ObjectID
+	UserId string `json:"user_id"` // hex representation of mongodb ObjectID
 	Email  string `json:"email"`
 	jwt.RegisteredClaims
 }
@@ -47,7 +47,7 @@ func ValidateAccessToken(tokenString string, c *AccessTokenClaims) error {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		c.Email = claims["email"].(string)
-		c.UserId = claims["userId"].(string)
+		c.UserId = claims["user_id"].(string)
 		return nil
 	}
 	return fmt.Errorf("unable to parse the token")

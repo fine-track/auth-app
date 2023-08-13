@@ -8,12 +8,12 @@ import (
 )
 
 type Session struct {
-	ID        primitive.ObjectID `bson:"_id"`
-	UserId    primitive.ObjectID `bson:"userId"`
-	Email     string             `bson:"email"`
-	IP        string             `bson:"ip"`
-	UserAgent string             `bson:"userAgent"`
-	CreatedAt primitive.DateTime `bson:"createdAt"`
+	ID        primitive.ObjectID `bson:"_id" json:"_id"`
+	UserId    primitive.ObjectID `bson:"user_id" json:"user_id"`
+	Email     string             `bson:"email" json:"email"`
+	IP        string             `bson:"ip" json:"ip"`
+	UserAgent string             `bson:"user_agent" json:"user_agent"`
+	CreatedAt primitive.DateTime `bson:"created_at" json:"created_at"`
 }
 
 func (s *Session) GetById(id string) error {
@@ -30,11 +30,11 @@ func (s *Session) GetById(id string) error {
 
 func (s *Session) CreateNew() error {
 	session, err := SessionsCol.InsertOne(context.TODO(), bson.M{
-		"email":     s.Email,
-		"userId":    s.UserId,
-		"ip":        s.IP,
-		"userAgent": s.UserAgent,
-		"createdAt": s.CreatedAt,
+		"email":      s.Email,
+		"user_id":    s.UserId,
+		"ip":         s.IP,
+		"user_agent": s.UserAgent,
+		"created_at": s.CreatedAt,
 	})
 	if err != nil {
 		return err

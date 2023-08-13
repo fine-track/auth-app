@@ -10,12 +10,12 @@ import (
 )
 
 type User struct {
-	ID        primitive.ObjectID `bson:"_id"`
-	Email     string             `bson:"email"`
-	Fullname  string             `bson:"fullname"`
-	Password  string             `bson:"password"`
-	CreatedAt primitive.DateTime `bson:"createdAt"`
-	UpdatedAt primitive.DateTime `bson:"updatedAt"`
+	ID        primitive.ObjectID `bson:"_id" json:"_id"`
+	Email     string             `bson:"email" json:"email"`
+	Fullname  string             `bson:"fullname" json:"fullname"`
+	Password  string             `bson:"password" json:"password"`
+	CreatedAt primitive.DateTime `bson:"created_at" json:"created_at"`
+	UpdatedAt primitive.DateTime `bson:"updated_at" json:"updated_at"`
 }
 
 func (u *User) GetById(id string) error {
@@ -40,11 +40,11 @@ func (u *User) GetUserByEmail(email string) error {
 
 func (u *User) CreateNew() error {
 	payload := bson.M{
-		"email":     u.Email,
-		"fullname":  u.Fullname,
-		"password":  u.Password,
-		"createdAt": primitive.NewDateTimeFromTime(time.Now()),
-		"updatedAt": primitive.NewDateTimeFromTime(time.Now()),
+		"email":      u.Email,
+		"fullname":   u.Fullname,
+		"password":   u.Password,
+		"created_at": primitive.NewDateTimeFromTime(time.Now()),
+		"updated_at": primitive.NewDateTimeFromTime(time.Now()),
 	}
 	user, err := UsersCol.InsertOne(context.TODO(), payload)
 	if err != nil {

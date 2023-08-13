@@ -1,6 +1,9 @@
 package utils
 
 import (
+	"math/rand"
+	"time"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -19,4 +22,12 @@ func IsValidPass(p string, h string) bool {
 	return err == nil
 }
 
-// TODO: add OTP verification methods
+func GenRandomStr(length int) string {
+	charset := "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" // using all uppercase for better user experience
+	seededRand := rand.New(rand.NewSource(time.Now().UnixNano()))
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}

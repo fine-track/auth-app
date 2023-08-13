@@ -16,7 +16,7 @@ type RegisterUserPayload struct {
 	Fullname        string `json:"fullname"`
 	Email           string `json:"email"`
 	Password        string `json:"password"`
-	ConfirmPassword string `json:"ConfirmPassword"`
+	ConfirmPassword string `json:"confirm_password"`
 }
 
 type LoginPayload struct {
@@ -25,7 +25,7 @@ type LoginPayload struct {
 }
 
 type LogoutPayload struct {
-	RefreshToken string `json:"refreshToken"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 func handleLogin(c *gin.Context) {
@@ -99,8 +99,8 @@ func handleLogin(c *gin.Context) {
 	} else {
 		res.Message = "Login successful"
 		res.Data = map[string]string{
-			"refreshToken": session.ID.Hex(),
-			"accessToken":  accessToken,
+			"refresh_token": session.ID.Hex(),
+			"access_token":  accessToken,
 		}
 		res.Ok(c)
 	}

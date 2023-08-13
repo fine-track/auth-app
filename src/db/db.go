@@ -28,11 +28,6 @@ func ConnectToDb() *mongo.Client {
 	if err != nil {
 		panic(err)
 	}
-	// defer func() {
-	// 	if err := client.Disconnect(context.TODO()); err != nil {
-	// 		panic(err)
-	// 	}
-	// }()
 	fmt.Println("Connected to the database")
 
 	DB = client.Database("finetrack")
