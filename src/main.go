@@ -38,6 +38,8 @@ func setupRouter() *gin.Engine {
 
 	r.POST("/authorize", verifyAccessTokenMiddleware, handleAuthorize)
 
+	r.GET("/profile", verifyAccessTokenMiddleware, handleGetProfile)
+
 	r.POST("/get-access-token", handleGetAccessToken)
 
 	r.POST("/login", handleLogin)

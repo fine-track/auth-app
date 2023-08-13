@@ -241,8 +241,32 @@ func handleGetAccessToken(c *gin.Context) {
 		res.Message = err.Error()
 		res.BadRequest(c)
 	} else {
-		res.Data = map[string]string{"accessToken": accessToken}
+		res.Data = map[string]string{"access_token": accessToken}
 		res.Message = "New access token which will be valid for the next 1 hour"
 		res.Ok(c)
 	}
+}
+
+func handleGetProfile(c *gin.Context) {
+	res := utils.HTTPResponse{}
+	temp, exists := c.Get("sessionData")
+	if !exists {
+		res.Message = "Invalid auth token"
+		res.Forbidden(c)
+		return
+	}
+	sessionData, ok := temp.(AccessTokenClaims)
+	if !ok {
+		res.Message = "Invalid request"
+		res.Forbidden(c)
+		return
+	}
+	user := db.User{}
+	if err := user.GetById(sessionData.UserId); err != nil {
+		res.Message = err.Error()
+		res.BadRequest(c)
+		return
+	}
+	res.Data = user
+	res.Ok(c)
 }
