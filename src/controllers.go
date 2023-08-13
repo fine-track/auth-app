@@ -237,7 +237,7 @@ func handleGetAccessToken(c *gin.Context) {
 		res.Unauthorized(c)
 		return
 	}
-	if accessToken, err := GetAccessTokenForSession(session.Email, session.ID.Hex()); err != nil {
+	if accessToken, err := GetAccessTokenForSession(session.Email, session.UserId.Hex()); err != nil {
 		res.Message = err.Error()
 		res.BadRequest(c)
 	} else {
@@ -267,6 +267,13 @@ func handleGetProfile(c *gin.Context) {
 		res.BadRequest(c)
 		return
 	}
-	res.Data = user
+	// only sending relevant data and omitting sensitive data such as passwords.
+	res.Data = gin.H{
+		"_id":        user.ID,
+		"fullname":   user.Fullname,
+		"email":      user.Email,
+		"created_at": user.CreatedAt,
+		"updated_at": user.UpdatedAt,
+	}
 	res.Ok(c)
 }

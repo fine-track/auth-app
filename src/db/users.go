@@ -20,6 +20,7 @@ type User struct {
 
 func (u *User) GetById(id string) error {
 	objId, err := primitive.ObjectIDFromHex(id)
+	fmt.Printf("getting user with: %v\n", id)
 	if err != nil {
 		return err
 	}
