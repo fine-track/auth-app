@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -43,7 +42,7 @@ func ValidateAccessToken(tokenString string, c *AccessTokenClaims) error {
 		return hmacSecret, nil
 	})
 	if err != nil {
-		log.Fatalln(err.Error())
+		return err
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		c.Email = claims["email"].(string)
