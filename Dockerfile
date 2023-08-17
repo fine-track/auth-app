@@ -18,4 +18,8 @@ FROM scratch
 
 COPY --from=builder /app/build/app /app
 
+COPY .prod.env ./.env
+
+EXPOSE 8081
+
 ENTRYPOINT ["/app"]
