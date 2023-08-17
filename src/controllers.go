@@ -277,3 +277,9 @@ func handleGetProfile(c *gin.Context) {
 	}
 	res.Ok(c)
 }
+
+func handleNotFound(c *gin.Context) {
+	res := utils.HTTPResponse{}
+	res.Message = fmt.Sprintf("%s: %s is not found!", c.Request.Method, c.Request.URL.Path)
+	res.NotFound(c)
+}

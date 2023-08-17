@@ -10,20 +10,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func corsMiddleware(c *gin.Context) {
-	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-	c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
-
-	if c.Request.Method == "OPTIONS" {
-		c.AbortWithStatus(204)
-		return
-	}
-
-	c.Next()
-}
-
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 
@@ -36,17 +22,15 @@ func setupRouter() *gin.Engine {
 		})
 	})
 
-	r.POST("/authorize", verifyAccessTokenMiddleware, handleAuthorize)
+	authGrp := r.Group("/auth")
+	authGrp.GET("/profile", verifyAccessTokenMiddleware, handleGetProfile)
+	authGrp.POST("/authorize", verifyAccessTokenMiddleware, handleAuthorize)
+	authGrp.POST("/logout", verifyAccessTokenMiddleware, handleLogout)
+	authGrp.POST("/get-access-token", handleGetAccessToken)
+	authGrp.POST("/login", handleLogin)
+	authGrp.POST("/register", handleRegister)
 
-	r.GET("/profile", verifyAccessTokenMiddleware, handleGetProfile)
-
-	r.POST("/get-access-token", handleGetAccessToken)
-
-	r.POST("/login", handleLogin)
-
-	r.POST("/logout", verifyAccessTokenMiddleware, handleLogout)
-
-	r.POST("/register", handleRegister)
+	r.Use(handleNotFound)
 
 	return r
 }

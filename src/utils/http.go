@@ -20,6 +20,7 @@ func (r *HTTPResponse) BadRequest(c *gin.Context) {
 	}
 	r.Success = false
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
 
 func (r *HTTPResponse) Unauthorized(c *gin.Context) {
@@ -29,6 +30,7 @@ func (r *HTTPResponse) Unauthorized(c *gin.Context) {
 	}
 	r.Success = false
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
 
 func (r *HTTPResponse) Forbidden(c *gin.Context) {
@@ -38,6 +40,7 @@ func (r *HTTPResponse) Forbidden(c *gin.Context) {
 	}
 	r.Success = false
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
 
 func (r *HTTPResponse) Ok(c *gin.Context) {
@@ -47,6 +50,7 @@ func (r *HTTPResponse) Ok(c *gin.Context) {
 	}
 	r.Success = true
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
 
 func (r *HTTPResponse) Created(c *gin.Context) {
@@ -56,6 +60,7 @@ func (r *HTTPResponse) Created(c *gin.Context) {
 	}
 	r.Success = true
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
 
 func (r *HTTPResponse) NotFound(c *gin.Context) {
@@ -65,6 +70,7 @@ func (r *HTTPResponse) NotFound(c *gin.Context) {
 	}
 	r.Success = false
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
 
 func (r *HTTPResponse) InternalServerError(c *gin.Context) {
@@ -74,4 +80,5 @@ func (r *HTTPResponse) InternalServerError(c *gin.Context) {
 	}
 	r.Success = false
 	c.JSON(r.StatusCode, r)
+	c.Abort()
 }
