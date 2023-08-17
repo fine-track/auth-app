@@ -8,11 +8,14 @@ install:
 
 build-macos:
 	make install && \
-	GOOS=darwin go build -o ./build/auth-app ./src/*.go
+	CGO_ENABLED=0 GOOS=darwin go build -o ./build/auth-app ./src/*.go
 
-build:
+build-linux:
 	make install && \
-	GOOS=linux go build -o ./build/auth-app ./src/*.go
+	CGO_ENABLED=0 GOOS=linux go build -o ./build/auth-app ./src/*.go
 
 start:
 	./build/auth-app
+
+deploy:
+	docker buildx build --platform=linux/amd64 -t sifatulrabbi/finetrack-auth-app:latest -f Dockerfile --push .
